@@ -5,7 +5,7 @@ namespace BusinessLayer
 {
     public class Category
     {
-        public static int InstanceCount { get; set; }
+        public static int InstanceCount { get; private set; }
 
         private int _id;
         private string _name;
@@ -39,12 +39,13 @@ namespace BusinessLayer
         public Category()
         {
             InstanceCount++;
+            _id = InstanceCount;
         }
 
-        public Category(int id): this()
+        /*public Category(int id): this()
         {
             _id = id;
-        }
+        }*/
 
         public bool Validate()
         {

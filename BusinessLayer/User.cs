@@ -5,13 +5,14 @@ namespace BusinessLayer
 {
     public class User
     {
-        public static int InstanceCount { get; set; }
+        public static int InstanceCount { get; private set; }
 
         private int _id;
         private string _firstName;
         private string _lastName;
         private string _email;
         private List<Budget> _budgets;
+        private List<SharedBudget> _sharedBudgets;
         private List<Category> _categories;
 
         public int Id
@@ -50,17 +51,25 @@ namespace BusinessLayer
             private set { _budgets = value; }
         }
 
+        public List<SharedBudget> SharedBudgets
+        {
+            get { return _sharedBudgets; }
+            private set { _sharedBudgets = value; }
+        }
+
         public User()
         {
             InstanceCount++;
             _budgets = new List<Budget>();
             _categories = new List<Category>();
+            _id = InstanceCount;
+            _sharedBudgets = new List<SharedBudget>();
         }
 
-        public User(int id):this()
+        /* public User(int id):this()
         {
             _id = id;
-        }
+        }*/
 
         public bool Validate()
         {
@@ -76,17 +85,9 @@ namespace BusinessLayer
             return result;
         }
 
-        /*public bool CreateBudget(int id)
-        {   
-            foreach(var budget in _budgets)
-            {
-                if (budget.Id == id)
-                {
-                    return false;
-                }
-            }
-            _budgets.Add(new Budget(id, this));
-            return true;
+        /*public Budget CreateBudget(string _name, decimal _startBalance, Currency _currency, string _description = null)
+        {
+            return new Budget(this, _name, _startBalance, _currency, _description);
         }*/
 
         public bool DeleteBudget(int id)
@@ -105,7 +106,7 @@ namespace BusinessLayer
             return false;
         }
 
-/*        public List<Budget> GetBudgets()
+        /*  public List<Budget> GetBudgets()
         {
             return _budgets.GetRange(0, _budgets.Capacity);
         }*/
@@ -116,23 +117,21 @@ namespace BusinessLayer
             {
                 return false;
             }
-            Budget shareBudget = null;
+            SharedBudget shareBudget1 = null;
             foreach(var budget in _budgets)
             {
                 if (budget.Id == budgetId)
                 {
-                    shareBudget = budget;
+                    shareBudget1 = new SharedBudget(budget);
                     break;
                 }
             }
-            if (shareBudget != null)
+            if (shareBudget1 != null)
             {
-                user._budgets.Add(shareBudget);
-                shareBudget.Users.Add(user);
+                user.SharedBudgets.Add(shareBudget1);
                 return true;
             }
             return false;
         }
-
     }
 }

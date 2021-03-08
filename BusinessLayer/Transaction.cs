@@ -5,14 +5,15 @@ namespace BusinessLayer
 {
     public class Transaction
     {
-        public static int InstanceCount { get; set; }
+        public static int InstanceCount { get; private set; }
 
         private int _id;
         private decimal _value;
         private Currency _currency;
         private string _description;
-        private DateTime? _date;
+        private DateTime _date;
         private Category _category;
+        private Budget _budget;
         private List<string> _attachments;
 
         public int Id
@@ -21,10 +22,16 @@ namespace BusinessLayer
             private set { _id = value; }
         }
 
+        public Budget Budget
+        {
+            get { return _budget; }
+            private set { _budget = value; }
+        }
+
         public decimal Value
         {
             get { return _value; }
-            set { _value = value; }
+            set { _value = value;}
         }
 
         public Currency Currency
@@ -39,7 +46,7 @@ namespace BusinessLayer
             set { _description = value; }
         }
 
-        public DateTime? Date
+        public DateTime Date
         {
             get { return _date; }
             set { _date = value; }
@@ -57,16 +64,27 @@ namespace BusinessLayer
             set { _attachments = value; }
         }
 
-        public Transaction()
+        public Transaction(Budget budget,decimal value, Currency currency, DateTime date, Category category, string description = null, List<string> attachments = null)
         {
+            Budget = budget;
+            Value = value;
+            Currency = currency;
+            Date = date;
+            Category = category;
+            Description = description;
+            Attachments = attachments;
             InstanceCount++;
-            _attachments = new List<string>();
+            if (Attachments == null)
+            {
+                _attachments = new List<string>();
+            }
+            _id = InstanceCount;
         }
 
-        public Transaction(int id): this()
+        /*public Transaction(int id): this()
         {
             _id = id;
-        }
+        }*/
 
         public bool Validate()
         {

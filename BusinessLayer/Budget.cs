@@ -15,7 +15,6 @@ namespace BusinessLayer
         private Currency _currency;
         //private int _userId;
         private User _owner;
-        private List<User> _users;
         private List<Transaction> _transactions;
         protected List<Category> _categories;
 
@@ -71,12 +70,6 @@ namespace BusinessLayer
             private set { _owner = value; }
         }
 
-        public List<User> Users
-        {
-            get { return _users; }
-            private set { _users = value; }
-        }
-
         /*public List<Transaction> Transactions
         {
             get { return _transactions; }
@@ -109,16 +102,35 @@ namespace BusinessLayer
             user.Budgets.Add(this);
         }*/
 
-        public Budget(int id, User user)
+        /*public Budget(User user)
         {
             InstanceCount++;
             Balance = StartBalance;
             _transactions = new List<Transaction>();
             _categories = new List<Category>();
             _users = new List<User>();
-            _id = id;
+            _id = InstanceCount;
             _owner = user;
             user.Budgets.Add(this);
+        }*/
+
+        public Budget(User user, string name, decimal startBalance, Currency currency)
+        {
+            InstanceCount++;
+            StartBalance = startBalance;
+            Balance = StartBalance;
+            Name = name;
+            Currency = currency;
+            _transactions = new List<Transaction>();
+            _categories = new List<Category>();
+            _id = InstanceCount;
+            _owner = user;
+            user.Budgets.Add(this);
+        }
+
+        public Budget(User user, string name, decimal startBalance, Currency currency, string description): this(user, name, startBalance, currency)
+        {
+            Description = description;
         }
 
         public bool Validate()
@@ -131,57 +143,68 @@ namespace BusinessLayer
             return result;
         }
 
-        public decimal Convert(Transaction transacion)
+        private decimal Convert(Transaction transaction)
         {
-            if (transacion.Currency == Currency)
+            if (transaction.Currency == Currency)
             {
-                return transacion.Value;
+                return transaction.Value;
             }
-            if (transacion.Currency == Currency.UAH)
+            if (transaction.Currency == Currency.UAH)
             {
                 if (Currency == Currency.USD)
                 {
-                    return transacion.Value * 0.036m;
+                    return transaction.Value * 0.036m;
                 }
                 if (Currency == Currency.EUR)
                 {
-                    return transacion.Value * 0.030m;
+                    return transaction.Value * 0.030m;
                 }
             }
-            if (transacion.Currency == Currency.USD)
+            if (transaction.Currency == Currency.USD)
             {
                 if (Currency == Currency.UAH)
                 {
-                    return transacion.Value * 27.75m;
+                    return transaction.Value * 27.75m;
                 }
                 if (Currency == Currency.EUR)
                 {
-                    return transacion.Value * 0.84m;
+                    return transaction.Value * 0.84m;
                 }
             }
-            if (transacion.Currency == Currency.EUR)
+            if (transaction.Currency == Currency.EUR)
             {
                 if (Currency == Currency.UAH)
                 {
-                    return transacion.Value * 33.07m;
+                    return transaction.Value * 33.07m;
                 }
                 if (Currency == Currency.USD)
                 {
-                    return transacion.Value * 1.19m;
+                    return transaction.Value * 1.19m;
                 }
             }
             return 0;
         }
 
+        public bool AddTransaction(decimal value, Currency currency, DateTime date, Category category, string description = null, List<string> attachments = null)
+        {
+            foreach (var c in _categories)
+            {
+                if (c == category)
+                {
+                    var transaction = new Transaction(this, value, currency, date, category, description, attachments);
+                    _transactions.Add(transaction);
+                    Balance += Convert(transaction);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool AddTransaction(Transaction transaction)
         {
-            if (!transaction.Validate() || !Validate())
+            foreach (var c in _categories)
             {
-                return false;
-            }
-            foreach (var category in _categories)
-            {
-                if (category == transaction.Category)
+                if (c == transaction.Category)
                 {
                     _transactions.Add(transaction);
                     Balance += Convert(transaction);
@@ -209,7 +232,7 @@ namespace BusinessLayer
             var result = 0m;
             foreach (var transaction in _transactions)
             {
-                if (DateTime.Today.Month == transaction.Date.Value.Month)
+                if (DateTime.Today.Month == transaction.Date.Month)
                 {
                     if (sign && transaction.Value > 0)
                     {
@@ -246,11 +269,18 @@ namespace BusinessLayer
 
         public List<Transaction> GetTransactions(int from, int to)
         {
-            if (from > to || to - from > 10)
+            if (from > to || to - from > 10 || from > _transactions.Count)
             {
                 return new List<Transaction>();
             }
-            return _transactions.GetRange(from, to - from);
+            if (to > _transactions.Count)
+            {
+                return _transactions.GetRange(from, _transactions.Count - from);
+            }
+            else
+            {
+                return _transactions.GetRange(from, to - from);
+            }
         }
 
         public List<Category> GetCategories()

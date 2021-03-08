@@ -12,11 +12,11 @@ namespace Tests
         {
             // Arrange
             var init = Budget.InstanceCount;
-            var user1 = new User(1) { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget1 = new Budget(1, user1) { Name = "Personal", Currency = Currency.EUR, StartBalance = 50 };
-            var budget2 = new Budget(2, user1) { Name = "Personal", Currency = Currency.EUR, StartBalance = 50 };
-            var budget3 = new Budget(3, user1) { Name = "Personal", Currency = Currency.EUR, StartBalance = 50 };
-            var budget4 = new Budget(4, user1) { Name = "Personal", Currency = Currency.EUR, StartBalance = 50 };
+            var user1 = new User() { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
+            new Budget(user1, "Personal1", 50, Currency.EUR);
+            new Budget(user1, "Personal2", 50, Currency.EUR);
+            new Budget(user1, "Personal3", 50, Currency.EUR);
+            new Budget(user1, "Personal4", 50, Currency.EUR);
             var expected = 4;
 
             // Act
@@ -30,24 +30,9 @@ namespace Tests
         public void ValidValidate()
         {
             // Arrange
-            var user1 = new User(1) { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget1 = new Budget(1, user1) { Name = "Personal", Currency = Currency.EUR, StartBalance = 50 };
+            var user1 = new User() { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user1, "Personal4", 50, Currency.EUR);
             var expected = true;
-
-            // Act
-            var actual = budget1.Validate();
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void ValidateWithoutName()
-        {
-            // Arrange
-            var user1 = new User(1) { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget1 = new Budget(1, user1) {Currency = Currency.UAH, StartBalance = 50 };
-            var expected = false;
 
             // Act
             var actual = budget1.Validate();
@@ -60,24 +45,22 @@ namespace Tests
         public void ValidAddTransaction()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50};
-            budget1.AddCategory(1);
-            budget1.AddCategory(2);
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
+            budget1.AddCategory(category1.Id);
+            budget1.AddCategory(category2.Id);
             var expected = true;
 
             // Act
-            var actual = budget1.AddTransaction(new Transaction()
-            {
-                Value = 15.5m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
+            var actual = budget1.AddTransaction(
+                15.5m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
 
             // Assert
             Assert.Equal(expected, actual);
@@ -87,22 +70,22 @@ namespace Tests
         public void InValidAddTransaction()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50 };
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
             budget1.AddCategory(1);
             budget1.AddCategory(2);
             var expected = false;
 
             // Act
-            var actual = budget1.AddTransaction(new Transaction()
-            {
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = new Category() { Name = "Category", Color = Color.Olive}
-            });
+            var actual = budget1.AddTransaction(
+                15.5m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                new Category() { Name = "Category", Color = Color.Olive }
+            );
 
             // Assert
             Assert.Equal(expected, actual);
@@ -112,8 +95,8 @@ namespace Tests
         public void BalanceWithoutTransaction()
         {
             // Arrange
-            var user1 = new User(1) { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget1 = new Budget(1, user1) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50 };
+            var user1 = new User() { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user1, "Personal4", 50, Currency.EUR);
             var expected = 50;
 
             // Act
@@ -127,8 +110,8 @@ namespace Tests
         public void BalanceWithoutTransactionAndStartBalance()
         {
             // Arrange
-            var user1 = new User(1) { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget1 = new Budget(1, user1) { Name = "Personal", Currency = Currency.UAH};
+            var user1 = new User() { FistName = "Andrii", LastName = "Chaliuk", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user1, "Personal4", 0, Currency.EUR);
             var expected = 0;
 
             // Act
@@ -142,35 +125,29 @@ namespace Tests
         public void BalanceWithTransaction()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
+            var budget1 = new Budget(user, "Personal4", 400, Currency.UAH);
+            budget1.AddCategory(category1.Id);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 400 };
-            budget1.AddCategory(1);
-            budget1.AddCategory(2);
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = 150m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 49),
-                Category = category1
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -135m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 50),
-                Category = category1
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -300m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 51),
-                Category = category2
-            });
+            budget1.AddCategory(category2.Id);
+            budget1.AddTransaction(
+                150m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 49),
+                category1
+            );
+            budget1.AddTransaction(
+                -135m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 50),
+                category1
+            );
+            budget1.AddTransaction(
+                -300m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 51),
+                category2
+            );
             var expected = 115;
 
             // Act
@@ -184,35 +161,29 @@ namespace Tests
         public void BalanceWithTransactionCurrency()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 400 };
-            budget1.AddCategory(1);
-            budget1.AddCategory(2);
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = 15m,
-                Currency = Currency.EUR,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 49),
-                Category = category1
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -13.5m,
-                Currency = Currency.USD,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 50),
-                Category = category1
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -300m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 51),
-                Category = category2
-            });
+            var budget1 = new Budget(user, "Personal4", 400, Currency.UAH);
+            budget1.AddCategory(category1.Id);
+            budget1.AddCategory(category2.Id);
+            budget1.AddTransaction(
+                15m, Currency.EUR,
+                new System.DateTime(2021, 3, 4, 12, 52, 49),
+                category1
+            );
+            budget1.AddTransaction(
+                -13.5m, Currency.USD,
+                new System.DateTime(2021, 3, 4, 12, 52, 50),
+                category1
+            );
+            budget1.AddTransaction(
+                -300m,Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 51),
+                category2
+            );
             var expected = 221.425m;
 
             // Act
@@ -226,25 +197,26 @@ namespace Tests
         public void ValidDeleteTransaction()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50 };
-            budget1.AddCategory(1);
-            budget1.AddCategory(2);
-            budget1.AddTransaction(new Transaction(1)
-            {
-                Value = 15.5m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
+            budget1.AddCategory(category1.Id);
+            budget1.AddCategory(category2.Id);
+            var transaction = new Transaction(
+                budget1,
+                15.5m,
+                Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
+            budget1.AddTransaction(transaction);
             var expected = true;
 
             // Act
-            var actual = budget1.DeleteTransaction(1);
+            var actual = budget1.DeleteTransaction(transaction.Id);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -254,21 +226,19 @@ namespace Tests
         public void InvalidDeleteTransaction()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50 };
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
             budget1.AddCategory(1);
             budget1.AddCategory(2);
-            budget1.AddTransaction(new Transaction(1)
-            {
-                Value = 15.5m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
+            budget1.AddTransaction(
+                15.5m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
             var expected = false;
 
             // Act
@@ -282,47 +252,38 @@ namespace Tests
         public void GetIncome()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50 };
-            budget1.AddCategory(1);
-            budget1.AddCategory(2);
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -15.5m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = 40m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -30m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = 100m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
+            budget1.AddCategory(category1.Id);
+            budget1.AddCategory(category2.Id);
+            budget1.AddTransaction(
+                -15.5m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
+            budget1.AddTransaction(
+                40m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
+            budget1.AddTransaction(
+                -30m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
+            budget1.AddTransaction(
+                100m, Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
             var expected = 140;
 
             // Act
             var actual = budget1.GetIncome();
-
 
             // Assert
             Assert.Equal(expected, actual);
@@ -332,42 +293,37 @@ namespace Tests
         public void GetExpenses()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50 };
-            budget1.AddCategory(1);
-            budget1.AddCategory(2);
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -15.5m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = 40m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = -30m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
-            budget1.AddTransaction(new Transaction()
-            {
-                Value = 100m,
-                Currency = Currency.UAH,
-                Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                Category = category1,
-            });
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
+            budget1.AddCategory(category1.Id);
+            budget1.AddCategory(category2.Id);
+            budget1.AddTransaction(
+                -15.5m,
+                Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
+            budget1.AddTransaction(
+                40m,
+                Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
+            budget1.AddTransaction(
+                -30m,Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
+            budget1.AddTransaction(
+                100m,
+                Currency.UAH,
+                new System.DateTime(2021, 3, 4, 12, 52, 48),
+                category1
+            );
             var expected = 45.5m;
 
             // Act
@@ -381,24 +337,22 @@ namespace Tests
         public void GetTransactions()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var category1 = new Category(1) { Name = "Food", Color = Color.Green };
-            var category2 = new Category(2) { Name = "Sport", Color = Color.Yellow };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var category1 = new Category() { Name = "Food", Color = Color.Green };
+            var category2 = new Category() { Name = "Sport", Color = Color.Yellow };
             user.Categories.Add(category1);
             user.Categories.Add(category2);
-            var budget1 = new Budget(1, user) { Name = "Personal", Currency = Currency.UAH, StartBalance = 50 };
-            budget1.AddCategory(1);
-            budget1.AddCategory(2);
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
+            budget1.AddCategory(category1.Id);
+            budget1.AddCategory(category2.Id);
             var expected = new List<Transaction>();
             for (var i = 0; i <= 15; ++i)
             {
-                var transaction = new Transaction()
-                {
-                    Value = -15.5m + i,
-                    Currency = Currency.UAH,
-                    Date = new System.DateTime(2021, 3, 4, 12, 52, 48),
-                    Category = category1,
-                };
+                var transaction = new Transaction(
+                    budget1, -15.5m + i, Currency.UAH,
+                    new System.DateTime(2021, 3, 4, 12, 52, 48),
+                    category1
+                );
                 budget1.AddTransaction(transaction);
                 expected.Add(transaction);
             }
@@ -414,7 +368,7 @@ namespace Tests
             }
             for (var i = 0; i < 5; ++i)
             {
-                Assert.Equal(expected[i+7], actual2[i]);
+                Assert.Equal(expected[i + 7], actual2[i]);
             }
         }
 
@@ -422,19 +376,19 @@ namespace Tests
         public void GetCategories()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget = new Budget(1, user) { Name = "Budget1", Currency = Currency.UAH };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
             var categories = new List<Category>();
-            for (int i = 0; i < 20; ++i)
+            for (int i = 1; i <= 20; ++i)
             {
-                var category = new Category(i) { Name = "Category" + i, Color = Color.White };
+                var category = new Category() { Name = "Category" + i, Color = Color.White };
                 user.Categories.Add(category);
                 categories.Add(category);
-                budget.AddCategory(i);
+                budget1.AddCategory(category.Id);
             }
 
             // Act
-            var actual = budget.GetCategories();
+            var actual = budget1.GetCategories();
 
             // Assert
             for (int i = 0; i < 20; ++i)
@@ -447,20 +401,20 @@ namespace Tests
         public void DeleteCategories()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget = new Budget(1, user) { Name = "Budget1", Currency = Currency.UAH };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
             var categories = new List<Category>();
             for (int i = 0; i < 20; ++i)
             {
-                var category = new Category(i) { Name = "Category" + i, Color = Color.White };
+                var category = new Category() { Name = "Category" + i, Color = Color.White };
                 user.Categories.Add(category);
                 categories.Add(category);
-                budget.AddCategory(i);
+                budget1.AddCategory(i);
             }
             var expected = true;
 
             // Act
-            var actual = budget.DeleteCategory(12);
+            var actual = budget1.DeleteCategory(12);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -470,14 +424,15 @@ namespace Tests
         public void ValidAddCategory()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget = new Budget(1, user) { Name = "Budget1", Currency = Currency.UAH };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
 
             var expected = true;
-            user.Categories.Add(new Category(1) { Name = "Category", Color = Color.White });
+            var category = new Category() { Name = "Category", Color = Color.White };
+            user.Categories.Add(category);
 
             // Act
-            var actual = budget.AddCategory(1);
+            var actual = budget1.AddCategory(category.Id);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -487,14 +442,14 @@ namespace Tests
         public void InvalidAddCategoryUser()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget = new Budget(1, user) { Name = "Budget1", Currency = Currency.UAH };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
 
             var expected = false;
-            user.Categories.Add(new Category(1) { Name = "Category", Color = Color.White });
+            user.Categories.Add(new Category() { Name = "Category", Color = Color.White });
 
             // Act
-            var actual = budget.AddCategory(2);
+            var actual = budget1.AddCategory(2);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -504,15 +459,15 @@ namespace Tests
         public void InvalidAddCategoryRepeat()
         {
             // Arrange
-            var user = new User(1) { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
-            var budget = new Budget(1, user) { Name = "Budget1", Currency = Currency.UAH };
+            var user = new User() { LastName = "Chaliuk", FistName = "Andrii", Email = "andrii.chaliuk@ukma.edu.ua" };
+            var budget1 = new Budget(user, "Personal4", 50, Currency.EUR);
 
             var expected = false;
-            user.Categories.Add(new Category(1) { Name = "Category", Color = Color.White });
-            budget.AddCategory(1);
+            user.Categories.Add(new Category() { Name = "Category", Color = Color.White });
+            budget1.AddCategory(1);
 
             // Act
-            var actual = budget.AddCategory(1);
+            var actual = budget1.AddCategory(1);
 
             // Assert
             Assert.Equal(expected, actual);
