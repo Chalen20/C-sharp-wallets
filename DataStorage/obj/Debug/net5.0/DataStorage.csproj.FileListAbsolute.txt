@@ -1,0 +1,12 @@
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\bin\Debug\net5.0\DataStorage.deps.json
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\bin\Debug\net5.0\DataStorage.dll
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\bin\Debug\net5.0\ref\DataStorage.dll
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\bin\Debug\net5.0\DataStorage.pdb
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\DataStorage.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\DataStorage.AssemblyInfoInputs.cache
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\DataStorage.AssemblyInfo.cs
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\DataStorage.csproj.CoreCompileInputs.cache
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\DataStorage.dll
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\ref\DataStorage.dll
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\DataStorage.pdb
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\net5.0\DataStorage.csprojAssemblyReference.cache

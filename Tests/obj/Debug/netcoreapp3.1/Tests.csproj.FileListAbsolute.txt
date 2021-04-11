@@ -87,6 +87,8 @@ C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\zh-Hans\Micros
 C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\BusinessLayer.dll
+C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\BusinessLayer.pdb
 C:\Users\Inspiron\source\repos\Lab1\Tests\obj\Debug\netcoreapp3.1\Tests.csprojAssemblyReference.cache
 C:\Users\Inspiron\source\repos\Lab1\Tests\obj\Debug\netcoreapp3.1\Tests.AssemblyInfoInputs.cache
 C:\Users\Inspiron\source\repos\Lab1\Tests\obj\Debug\netcoreapp3.1\Tests.AssemblyInfo.cs
@@ -95,5 +97,3 @@ C:\Users\Inspiron\source\repos\Lab1\Tests\obj\Debug\netcoreapp3.1\Tests.csproj.C
 C:\Users\Inspiron\source\repos\Lab1\Tests\obj\Debug\netcoreapp3.1\Tests.dll
 C:\Users\Inspiron\source\repos\Lab1\Tests\obj\Debug\netcoreapp3.1\Tests.pdb
 C:\Users\Inspiron\source\repos\Lab1\Tests\obj\Debug\netcoreapp3.1\Tests.genruntimeconfig.cache
-C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\BusinessLayer.dll
-C:\Users\Inspiron\source\repos\Lab1\Tests\bin\Debug\netcoreapp3.1\BusinessLayer.pdb

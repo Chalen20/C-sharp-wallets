@@ -1,0 +1,8 @@
+C:\Users\Inspiron\source\repos\Lab1\Models\bin\Debug\netstandard1.2\Models.deps.json
+C:\Users\Inspiron\source\repos\Lab1\Models\bin\Debug\netstandard1.2\Models.dll
+C:\Users\Inspiron\source\repos\Lab1\Models\bin\Debug\netstandard1.2\Models.pdb
+C:\Users\Inspiron\source\repos\Lab1\Models\obj\Debug\netstandard1.2\Models.AssemblyInfoInputs.cache
+C:\Users\Inspiron\source\repos\Lab1\Models\obj\Debug\netstandard1.2\Models.AssemblyInfo.cs
+C:\Users\Inspiron\source\repos\Lab1\Models\obj\Debug\netstandard1.2\Models.csproj.CoreCompileInputs.cache
+C:\Users\Inspiron\source\repos\Lab1\Models\obj\Debug\netstandard1.2\Models.dll
+C:\Users\Inspiron\source\repos\Lab1\Models\obj\Debug\netstandard1.2\Models.pdb

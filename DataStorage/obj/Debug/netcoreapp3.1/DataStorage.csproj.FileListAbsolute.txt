@@ -1,0 +1,9 @@
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\bin\Debug\netcoreapp3.1\DataStorage.deps.json
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\bin\Debug\netcoreapp3.1\DataStorage.dll
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\bin\Debug\netcoreapp3.1\DataStorage.pdb
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\netcoreapp3.1\DataStorage.csprojAssemblyReference.cache
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\netcoreapp3.1\DataStorage.AssemblyInfoInputs.cache
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\netcoreapp3.1\DataStorage.AssemblyInfo.cs
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\netcoreapp3.1\DataStorage.csproj.CoreCompileInputs.cache
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\netcoreapp3.1\DataStorage.dll
+C:\Users\Inspiron\source\repos\Lab1\DataStorage\obj\Debug\netcoreapp3.1\DataStorage.pdb

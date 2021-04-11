@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "nFX5AmVzPCiir3/hrbhgviK57XaifJq/Y9CvavqxFp3/nP+E9chvwnR9nhhNdsQ6p8SLsHMXyl7YyJ1LMbrqHg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\GUI\\BudgetsWPF\\BudgetsWPF.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Inspiron\\.nuget\\packages\\prism.core\\8.0.0.1909\\prism.core.8.0.0.1909.nupkg.sha512"
+  ],
+  "logs": []
+}
