@@ -1671,6 +1671,20 @@
         "runtime": {
           "bin/placeholder/DataStorage.dll": {}
         }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "BusinessLayer": "1.0.0",
+          "DataStorage": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
+        }
       }
     }
   },
@@ -5644,12 +5658,18 @@
       "type": "project",
       "path": "../DataStorage/DataStorage.csproj",
       "msbuildProject": "../DataStorage/DataStorage.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../Services1/Services.csproj",
+      "msbuildProject": "../Services1/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "BusinessLayer >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
+      "Services >= 1.0.0",
       "coverlet.collector >= 1.3.0",
       "xunit >= 2.4.1",
       "xunit.runner.visualstudio >= 2.4.3"
@@ -5684,6 +5704,9 @@
           "projectReferences": {
             "C:\\Users\\Inspiron\\source\\repos\\Lab1\\BusinessLayer\\BusinessLayer.csproj": {
               "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\BusinessLayer\\BusinessLayer.csproj"
+            },
+            "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Services1\\Services.csproj": {
+              "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Services1\\Services.csproj"
             }
           }
         }

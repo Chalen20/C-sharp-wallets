@@ -47,23 +47,5 @@ namespace Tests
             // Assert
             Assert.Equal(expected, actual);
         }
-
-        [Fact]
-        public void InstanceCount()
-        {
-            // Arrange
-            var init = Category.InstanceCount;
-            var category1 = new Category() { Name = "Category1", Color = Color.Red };
-            var category2 = new Category() { Name = "Category2", Color = Color.Blue };
-            var category3 = new Category() { Name = "Category3", Color = Color.Green };
-
-            var expected = 3;
-
-            // Act
-            var actual = Category.InstanceCount - init;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
     }
 }
