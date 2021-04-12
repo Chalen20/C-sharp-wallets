@@ -12,12 +12,8 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
             <TextBlock Margin="10 10 10 0">Name</TextBlock>
@@ -31,11 +27,14 @@
             <TextBlock Margin="10 10 10 0">Start balance</TextBlock>
             <TextBox MinWidth="300" Margin="10" HorizontalAlignment="Stretch" Text="{Binding StartBalance, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>-->
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="2">
+            <TextBlock Margin="10 10 10 0">Currency</TextBlock>
+            <TextBox MinWidth="300" Margin="10" HorizontalAlignment="Stretch" Text="{Binding Currency, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
             <TextBlock Margin="10 10 10 0">Description</TextBlock>
             <TextBox MinWidth="300" Margin="10" HorizontalAlignment="Stretch" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>
-        <Button MaxWidth="100" Margin="10" Grid.Row="3" Command="{Binding DeleteCommand}">Delete</Button>
-        <Button MaxWidth="100" Margin="10" Grid.Row="3" Grid.Column="1" Command="{Binding UpdateCommand}">Update</Button>
+        <Button MaxWidth="100" Margin="10" Grid.Row="4" Grid.Column="1" Command="{Binding UpdateCommand}">Update</Button>
     </Grid>
 </UserControl>

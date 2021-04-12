@@ -1,4 +1,5 @@
 ﻿using BudgetsWPF.Navigation;
+using BusinessLayer.Users;
 using Prism.Commands;
 using System;
 using System.ComponentModel;

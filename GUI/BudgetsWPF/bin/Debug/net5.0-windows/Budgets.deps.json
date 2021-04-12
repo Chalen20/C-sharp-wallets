@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "Budgets/1.0.0": {
         "dependencies": {
-          "Models": "1.0.0",
+          "BusinessLayer": "1.0.0",
           "Prism.Core": "8.0.0.1909",
           "Services": "1.0.0"
         },
@@ -24,22 +24,23 @@
           }
         }
       },
+      "BusinessLayer/1.0.0": {
+        "dependencies": {
+          "DataStorage": "1.0.0"
+        },
+        "runtime": {
+          "BusinessLayer.dll": {}
+        }
+      },
       "DataStorage/1.0.0": {
         "runtime": {
           "DataStorage.dll": {}
         }
       },
-      "Models/1.0.0": {
-        "dependencies": {
-          "DataStorage": "1.0.0"
-        },
-        "runtime": {
-          "Models.dll": {}
-        }
-      },
       "Services/1.0.0": {
         "dependencies": {
-          "Models": "1.0.0"
+          "BusinessLayer": "1.0.0",
+          "DataStorage": "1.0.0"
         },
         "runtime": {
           "Services.dll": {}
@@ -60,12 +61,12 @@
       "path": "prism.core/8.0.0.1909",
       "hashPath": "prism.core.8.0.0.1909.nupkg.sha512"
     },
-    "DataStorage/1.0.0": {
+    "BusinessLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Models/1.0.0": {
+    "DataStorage/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

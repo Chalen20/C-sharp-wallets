@@ -1,4 +1,5 @@
-﻿using DataStorage;
+﻿using BusinessLayer.Users;
+using DataStorage;
 using System;
 using System.Linq;
 using System.Threading;
@@ -34,7 +35,7 @@ namespace BudgetsWPF
                     String.IsNullOrWhiteSpace(regUser.LastName) || String.IsNullOrWhiteSpace(regUser.FirstName) ||
                     String.IsNullOrWhiteSpace(regUser.Email))
                     throw new ArgumentException("Login, Password, FirstName, LastName or Email is Empty");
-                dbuser = new DBUser(regUser.FirstName, regUser.LastName, regUser.Email, regUser.Login, PasswordHash(regUser.Password));
+                dbuser = new DBUser(Guid.NewGuid(), regUser.FirstName, regUser.LastName, regUser.Email, regUser.Login, PasswordHash(regUser.Password));
                 await _storage.AddOrUpdateAsync(dbuser);
                 return true;
             });

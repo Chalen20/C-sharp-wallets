@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "BusinessLayer/1.0.0": {
+        "dependencies": {
+          "DataStorage": "1.0.0"
+        },
+        "runtime": {
+          "BusinessLayer.dll": {}
+        }
+      },
+      "DataStorage/1.0.0": {
+        "runtime": {
+          "DataStorage.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BusinessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DataStorage/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

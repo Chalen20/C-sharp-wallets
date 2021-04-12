@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "BusinessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DataStorage": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BusinessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BusinessLayer.dll": {}
+        }
+      },
       "DataStorage/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -11,37 +24,25 @@
         "runtime": {
           "bin/placeholder/DataStorage.dll": {}
         }
-      },
-      "Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "DataStorage": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Models.dll": {}
-        }
       }
     }
   },
   "libraries": {
+    "BusinessLayer/1.0.0": {
+      "type": "project",
+      "path": "../BusinessLayer/BusinessLayer.csproj",
+      "msbuildProject": "../BusinessLayer/BusinessLayer.csproj"
+    },
     "DataStorage/1.0.0": {
       "type": "project",
       "path": "../DataStorage/DataStorage.csproj",
       "msbuildProject": "../DataStorage/DataStorage.csproj"
-    },
-    "Models/1.0.0": {
-      "type": "project",
-      "path": "../Models1/Models.csproj",
-      "msbuildProject": "../Models1/Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Models >= 1.0.0"
+      "BusinessLayer >= 1.0.0",
+      "DataStorage >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -71,8 +72,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Models1\\Models.csproj": {
-              "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Models1\\Models.csproj"
+            "C:\\Users\\Inspiron\\source\\repos\\Lab1\\BusinessLayer\\BusinessLayer.csproj": {
+              "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\BusinessLayer\\BusinessLayer.csproj"
+            },
+            "C:\\Users\\Inspiron\\source\\repos\\Lab1\\DataStorage\\DataStorage.csproj": {
+              "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\DataStorage\\DataStorage.csproj"
             }
           }
         }

@@ -1,15 +1,39 @@
-﻿using Models.Budgets;
+﻿using BusinessLayer;
+using BusinessLayer.Budgets;
 using Prism.Commands;
 using Prism.Mvvm;
+using System;
 
 namespace BudgetsWPF.Budgets
 {
     public class BudgetsDetailsViewModel : BindableBase
     {
         private Budget _budget;
+        private bool _isEnabled = true;
+        private BudgetsService _service;
+        private bool _savable = false;
+
+        public bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                _isEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+        public Guid Guid 
+        {
+            get
+            {
+                return _budget.Guid;
+            }
+        }
 
         public DelegateCommand UpdateCommand { get; }
-        public DelegateCommand DeleteCommand { get; }
 
         public string Name
         {
@@ -19,8 +43,12 @@ namespace BudgetsWPF.Budgets
             }
             set
             {
-                _budget.Name = value;
-                RaisePropertyChanged(nameof(DisplayName));
+                if (_budget.Name != value)
+                {
+                    _budget.Name = value;
+                    _savable = true;
+                    RaisePropertyChanged();
+                }
             }
         }
 
@@ -32,8 +60,12 @@ namespace BudgetsWPF.Budgets
             }
             set
             {
-                _budget.Balance = value;
-                RaisePropertyChanged(nameof(DisplayName));
+                if (_budget.Balance != value)
+                {
+                    _budget.Balance = value;
+                    RaisePropertyChanged();
+                    _savable = true;
+                }
             }
         }
 
@@ -45,8 +77,28 @@ namespace BudgetsWPF.Budgets
             }
             set
             {
-                _budget.Description = value;
-                /*RaisePropertyChanged(nameof(DisplayName));*/
+                if (_budget.Description != value)
+                {
+                    _budget.Description = value;
+                    RaisePropertyChanged();
+                    _savable = true;
+                }
+            }
+        }
+
+        public Currency Currency
+        {
+            get
+            {
+                return _budget.Currency;
+            }
+            set
+            {
+                if (_budget.Currency != value)
+                {
+                    _budget.Currency = value;
+                    RaisePropertyChanged();
+                }
             }
         }
 
@@ -60,8 +112,19 @@ namespace BudgetsWPF.Budgets
 
         public BudgetsDetailsViewModel(Budget budget)
         {
-/*            UpdateCommand = new DelegateCommand();*/
+            _service = new BudgetsService();
+            UpdateCommand = new DelegateCommand(SaveBudget /*() => _savable*/);
             _budget = budget;
+        }
+
+        private async void SaveBudget()
+        {
+            IsEnabled = false;
+            await _service.AddOrUpdateAsync(_budget);
+            _savable = false;
+            RaisePropertyChanged(nameof(DisplayName));
+            UpdateCommand.RaiseCanExecuteChanged();
+            IsEnabled = true;
         }
     }
 }

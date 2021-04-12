@@ -19,9 +19,7 @@ C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\Budg
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\ref\Budgets.dll
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\Budgets.pdb
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\Prism.dll
-C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\Models.dll
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\Services.dll
-C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\Models.pdb
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\Services.pdb
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\obj\Debug\net5.0-windows\Authentication\AuthView.baml
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\obj\Debug\net5.0-windows\Authentication\SignUpView.baml
@@ -43,3 +41,5 @@ C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\obj\Debug\net5.0-windows\Budg
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\obj\Debug\net5.0-windows\Budgets\BudgetsDetailsView.baml
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\DataStorage.dll
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\DataStorage.pdb
+C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\BusinessLayer.dll
+C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\bin\Debug\net5.0-windows\BusinessLayer.pdb

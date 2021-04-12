@@ -1,6 +1,7 @@
-﻿using System;
+﻿using BusinessLayer.Budgets;
+using BusinessLayer.Users;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLayer
 {
@@ -9,9 +10,9 @@ namespace BusinessLayer
 /*        public static int InstanceCount { get; private set; }*/
         private Budget _budget;
 
-        public int Id
+        public Guid Id
         {
-            get { return _budget.Id; }
+            get { return _budget.Guid; }
         }
 
         public string Name

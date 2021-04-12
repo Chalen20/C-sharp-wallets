@@ -1,4 +1,5 @@
 ﻿using BudgetsWPF.Navigation;
+using BusinessLayer.Users;
 using Prism.Commands;
 using System;
 using System.ComponentModel;
@@ -113,6 +114,7 @@ namespace BudgetsWPF.Authentication
                 {
                     IsEnabled = false;
                     user = await Task.Run(() => authService.Authenticate(_authUser));
+                    CurrentUser.User = user;
                 }
                 catch (Exception ex)
                 {

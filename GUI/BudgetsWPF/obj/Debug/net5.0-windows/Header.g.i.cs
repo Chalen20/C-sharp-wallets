@@ -53,7 +53,7 @@ namespace BudgetsWPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Budgets;component/header.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Budgets;V1.0.0.0;component/header.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Header.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

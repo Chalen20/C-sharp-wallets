@@ -8,12 +8,20 @@ namespace DataStorage
 {
     public class FileDataStorage<TObject> where TObject : class, IStorable
     {
-        private static readonly string BaseFolder = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "BudgetsStorage", typeof(TObject).Name);
+        private string BaseFolder;
 
-        public FileDataStorage()
+        public FileDataStorage(string subfolder = "")
         {
+            if (!String.IsNullOrWhiteSpace(subfolder))
+            {
+                BaseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "BudgetsStorage", typeof(TObject).Name, subfolder);
+            }
+            else
+            {
+                BaseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "BudgetsStorage", typeof(TObject).Name);
+            }
             if (!Directory.Exists(BaseFolder))
                 Directory.CreateDirectory(BaseFolder);
         }
@@ -65,5 +73,14 @@ namespace DataStorage
             return res;
         }
 
+        public void Delete(Guid guid)
+        {
+            string FilePath = Path.Combine(BaseFolder, guid.ToString("N"));
+
+            if (!File.Exists(FilePath))
+                return;
+
+            File.Delete(FilePath);
+        }
     }
 }

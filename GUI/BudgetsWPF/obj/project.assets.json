@@ -11,6 +11,19 @@
           "lib/netstandard2.0/Prism.dll": {}
         }
       },
+      "BusinessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DataStorage": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BusinessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BusinessLayer.dll": {}
+        }
+      },
       "DataStorage/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -21,24 +34,12 @@
           "bin/placeholder/DataStorage.dll": {}
         }
       },
-      "Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "DataStorage": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Models.dll": {}
-        }
-      },
       "Services/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Models": "1.0.0"
+          "BusinessLayer": "1.0.0",
+          "DataStorage": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Services.dll": {}
@@ -72,15 +73,15 @@
         "prism.core.nuspec"
       ]
     },
+    "BusinessLayer/1.0.0": {
+      "type": "project",
+      "path": "../../BusinessLayer/BusinessLayer.csproj",
+      "msbuildProject": "../../BusinessLayer/BusinessLayer.csproj"
+    },
     "DataStorage/1.0.0": {
       "type": "project",
       "path": "../../DataStorage/DataStorage.csproj",
       "msbuildProject": "../../DataStorage/DataStorage.csproj"
-    },
-    "Models/1.0.0": {
-      "type": "project",
-      "path": "../../Models1/Models.csproj",
-      "msbuildProject": "../../Models1/Models.csproj"
     },
     "Services/1.0.0": {
       "type": "project",
@@ -90,7 +91,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
-      "Models >= 1.0.0",
+      "BusinessLayer >= 1.0.0",
       "Prism.Core >= 8.0.0.1909",
       "Services >= 1.0.0"
     ]
@@ -122,8 +123,8 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "projectReferences": {
-            "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Models1\\Models.csproj": {
-              "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Models1\\Models.csproj"
+            "C:\\Users\\Inspiron\\source\\repos\\Lab1\\BusinessLayer\\BusinessLayer.csproj": {
+              "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\BusinessLayer\\BusinessLayer.csproj"
             },
             "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Services1\\Services.csproj": {
               "projectPath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\Services1\\Services.csproj"

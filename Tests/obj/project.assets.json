@@ -1651,7 +1651,7 @@
       },
       "BusinessLayer/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/BusinessLayer.dll": {}
         },
@@ -5719,5 +5719,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Проект BusinessLayer несовместим с netcoreapp3.1 (.NETCoreApp,Version=v3.1). Проект BusinessLayer поддерживает: net5.0 (.NETCoreApp,Version=v5.0)",
+      "libraryId": "BusinessLayer",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }
