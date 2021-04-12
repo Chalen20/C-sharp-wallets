@@ -16,5 +16,5 @@ C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\App.xaml
 197-274745251
 Authentication\AuthView.xaml;Authentication\SignInView.xaml;Authentication\SignUpView.xaml;Budgets\BudgetsDetailsView.xaml;Budgets\BudgetsView.xaml;Header.xaml;MainView.xaml;MainWindow.xaml;
 
-True
+False
 

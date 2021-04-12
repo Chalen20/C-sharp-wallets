@@ -77,7 +77,7 @@ namespace BudgetsWPF.Authentication {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Budgets;V1.0.0.0;component/authentication/signupview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Budgets;component/authentication/signupview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Authentication\SignUpView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

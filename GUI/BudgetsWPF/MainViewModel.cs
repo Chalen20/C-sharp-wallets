@@ -19,7 +19,7 @@ namespace BudgetsWPF
             }
             else /*if (type == AuthNavigatableTypes.SignUp)*/
             {
-                return new BudgetsViewModel();
+                return new BudgetsViewModel(() => Navigate(MainNavigatableTypes.Auth));
             }
         }
     }

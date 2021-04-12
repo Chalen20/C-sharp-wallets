@@ -12,14 +12,17 @@ namespace BudgetsWPF
         private FileDataStorage<DBUser> _storage = new FileDataStorage<DBUser>();
         public async Task<User> Authenticate(AuthenticationUser authUser)
         {
-            Thread.Sleep(2000);
-            if (String.IsNullOrWhiteSpace(authUser.Login) || String.IsNullOrWhiteSpace(authUser.Password)) 
-                throw new ArgumentException("Login or/and Password is Empty");
-            var users = await _storage.GetAllAsync();
-            var dbuser = users.FirstOrDefault(user => user.Login == authUser.Login && user.Password == PasswordHash(authUser.Password));
-            if (dbuser == null)
-                throw new Exception("Wrong Login or Password");
-            return new User(dbuser.Guid, dbuser.FirstName, dbuser.LastName, dbuser.Email, dbuser.Password);
+            return await Task.Run(async () =>
+            {
+                Thread.Sleep(2000);
+                if (String.IsNullOrWhiteSpace(authUser.Login) || String.IsNullOrWhiteSpace(authUser.Password))
+                    throw new ArgumentException("Login or/and Password is Empty");
+                var users = await _storage.GetAllAsync();
+                var dbuser = users.FirstOrDefault(user => user.Login == authUser.Login && user.Password == PasswordHash(authUser.Password));
+                if (dbuser == null)
+                    throw new Exception("Wrong Login or Password");
+                return new User(dbuser.Guid, dbuser.FirstName, dbuser.LastName, dbuser.Email, dbuser.Password);
+            });
         }
 
         public async Task<bool> RegisterUser(RegistrationUser regUser)

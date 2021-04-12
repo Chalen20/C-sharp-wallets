@@ -115,6 +115,8 @@ namespace BudgetsWPF.Authentication
                     IsEnabled = false;
                     user = await Task.Run(() => authService.Authenticate(_authUser));
                     CurrentUser.User = user;
+                    MessageBox.Show($"Sign in was successful for user {user.FirstName} {user.LastName}");
+                    _goToBudgets.Invoke();
                 }
                 catch (Exception ex)
                 {
@@ -125,8 +127,6 @@ namespace BudgetsWPF.Authentication
                 {
                     IsEnabled = true;
                 }
-                MessageBox.Show($"Sign in was successful for user {user.FirstName} {user.LastName}");
-                _goToBudgets.Invoke();
             }
         }
 

@@ -18,6 +18,8 @@ namespace BudgetsWPF.Budgets
         private bool _isEnable = true;
         public DelegateCommand CreateCommand { get; }
         public DelegateCommand DeleteCommand { get; }
+
+        public DelegateCommand SignOutCommand { get; }
         public ObservableCollection<BudgetsDetailsViewModel> Budgets { get; set; }
 
         public BudgetsDetailsViewModel CurrentBudget
@@ -30,6 +32,7 @@ namespace BudgetsWPF.Budgets
             {
                 _currentBudget = value;
                 RaisePropertyChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -46,17 +49,12 @@ namespace BudgetsWPF.Budgets
             }
         }
         
-        public BudgetsViewModel()
+        public BudgetsViewModel(Action SignOut)
         {
-            _service = new BudgetsService();
             CreateCommand = new DelegateCommand(AddBudget);
-            DeleteCommand = new DelegateCommand(DeleteBudget/* () => CurrentBudget != null*/);
-            Budgets = new ObservableCollection<BudgetsDetailsViewModel>();
-            var res = Task.Run(_service.GetBudgets).Result;
-            foreach (var budget in res)
-            {
-                Budgets.Add(new BudgetsDetailsViewModel(budget));
-            }
+            DeleteCommand = new DelegateCommand(DeleteBudget, () => CurrentBudget != null);
+            SignOutCommand = new DelegateCommand(SignOut);
+            ClearSensitiveData();
         }
 
         private async void AddBudget()
@@ -70,19 +68,31 @@ namespace BudgetsWPF.Budgets
             IsEnabled = true;
         }
 
-        private void DeleteBudget()
+        private async void DeleteBudget()
         {
             IsEnabled = false;
             MessageBoxResult boxResult =
                 MessageBox.Show("Are you sure you want to delete your wallet? ", "Remove", MessageBoxButton.YesNo);
             if (boxResult == MessageBoxResult.Yes)
             {
-                _service.DeleteBudget(CurrentBudget.Guid);
+                await _service.DeleteBudget(CurrentBudget.Guid);
                 int index = Budgets.IndexOf(CurrentBudget);
                 Budgets.RemoveAt(index);
-                CurrentBudget = index == Budgets.Count
-                    ? index == 0 ? null : Budgets.ElementAt(index - 1)
-                    : Budgets.ElementAt(index);
+                if (index == Budgets.Count)
+                {
+                    if (index == 0)
+                    {
+                        CurrentBudget = null;
+                    }
+                    else
+                    {
+                        CurrentBudget = Budgets.ElementAt(index - 1);
+                    }
+                }
+                else
+                {
+                    CurrentBudget = Budgets.ElementAt(index);
+                }
             }
             IsEnabled = true;
         }
@@ -97,6 +107,14 @@ namespace BudgetsWPF.Budgets
 
         public void ClearSensitiveData()
         {
+            _service = new BudgetsService();
+            Budgets = new ObservableCollection<BudgetsDetailsViewModel>();
+            CurrentBudget = null;
+            var res = Task.Run(_service.GetBudgets).Result;
+            foreach (var budget in res)
+            {
+                Budgets.Add(new BudgetsDetailsViewModel(budget));
+            }
         }
     }
 }

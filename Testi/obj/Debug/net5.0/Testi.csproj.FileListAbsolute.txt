@@ -1,0 +1,5 @@
+C:\Users\Inspiron\source\repos\Lab1\Testi\obj\Debug\net5.0\Testi.csprojAssemblyReference.cache
+C:\Users\Inspiron\source\repos\Lab1\Testi\obj\Debug\net5.0\Testi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Inspiron\source\repos\Lab1\Testi\obj\Debug\net5.0\Testi.AssemblyInfoInputs.cache
+C:\Users\Inspiron\source\repos\Lab1\Testi\obj\Debug\net5.0\Testi.AssemblyInfo.cs
+C:\Users\Inspiron\source\repos\Lab1\Testi\obj\Debug\net5.0\Testi.csproj.CoreCompileInputs.cache

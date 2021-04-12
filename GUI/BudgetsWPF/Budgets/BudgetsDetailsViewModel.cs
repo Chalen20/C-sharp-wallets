@@ -47,6 +47,7 @@ namespace BudgetsWPF.Budgets
                 {
                     _budget.Name = value;
                     _savable = true;
+                    UpdateCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged();
                 }
             }
@@ -65,6 +66,7 @@ namespace BudgetsWPF.Budgets
                     _budget.Balance = value;
                     RaisePropertyChanged();
                     _savable = true;
+                    UpdateCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -82,6 +84,7 @@ namespace BudgetsWPF.Budgets
                     _budget.Description = value;
                     RaisePropertyChanged();
                     _savable = true;
+                    UpdateCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -98,6 +101,8 @@ namespace BudgetsWPF.Budgets
                 {
                     _budget.Currency = value;
                     RaisePropertyChanged();
+                    _savable = true;
+                    UpdateCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -113,7 +118,7 @@ namespace BudgetsWPF.Budgets
         public BudgetsDetailsViewModel(Budget budget)
         {
             _service = new BudgetsService();
-            UpdateCommand = new DelegateCommand(SaveBudget /*() => _savable*/);
+            UpdateCommand = new DelegateCommand(SaveBudget, () => _savable);
             _budget = budget;
         }
 

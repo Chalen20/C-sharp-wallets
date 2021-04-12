@@ -3,6 +3,7 @@ using BusinessLayer.Users;
 using DataStorage;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BudgetsWPF
@@ -21,17 +22,29 @@ namespace BudgetsWPF
 
         public async Task<List<Budget>> GetBudgets()
         {
-            return await _storage.GetAllAsync();
+            return await Task.Run(async () =>
+            {
+                Thread.Sleep(2000);
+                return await _storage.GetAllAsync();
+            });
         }
 
         public async Task AddOrUpdateAsync(Budget budget)
         {
-            await _storage.AddOrUpdateAsync(budget);
+            await Task.Run(async () =>
+            {
+                Thread.Sleep(2000);
+                await _storage.AddOrUpdateAsync(budget);
+            });
         }
 
-        public void DeleteBudget(Guid guid)
+        public async Task DeleteBudget(Guid guid)
         {
-            _storage.Delete(guid);
+           await Task.Run(() =>
+           {
+               Thread.Sleep(2000);
+               _storage.Delete(guid);
+           });
         }
 
 
