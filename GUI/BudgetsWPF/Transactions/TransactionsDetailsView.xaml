@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="BudgetsWPF.Transactions.TransactionsDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BudgetsWPF.Budgets"
+             xmlns:currency ="clr-namespace:BusinessLayer;assembly=BusinessLayer"
+             mc:Ignorable="d" 
+             IsEnabled="{Binding IsEnabled}">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button MaxWidth="100" Margin="10" Grid.Row="0" Command="{Binding BackToBudgetCommand}">Back</Button>
+        <StackPanel Grid.Row="1">
+            <TextBlock Margin="10 10 10 0">Value</TextBlock>
+            <TextBox Margin="10" HorizontalAlignment="Stretch" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <TextBlock Margin="10 10 10 0">Date</TextBlock>
+            <TextBox Margin="10" HorizontalAlignment="Stretch" Text="{Binding Date, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+            <TextBlock Margin="10 10 10 0">Currency</TextBlock>
+            <TextBox Margin="10" HorizontalAlignment="Stretch" Text="{Binding Currency, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="4">
+            <TextBlock Margin="10 10 10 0">Description</TextBlock>
+            <TextBox Margin="10" HorizontalAlignment="Stretch" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+        <Button MaxWidth="100" Margin="10" Grid.Row="5" Command="{Binding UpdateCommand}">Update</Button>
+    </Grid>
+</UserControl>

@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Budgets;
+using BusinessLayer.Transactions;
 using BusinessLayer.Users;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace BusinessLayer
             return _budget.Validate();
         }
 
-        public bool AddTransaction(decimal value, Currency currency, DateTime date, Category category, string description = null, List<string> attachments = null)
+       /* public bool AddTransaction(decimal value, Currency currency, DateTime date, Category category, string description = null, List<string> attachments = null)
         {
             return _budget.AddTransaction(value, currency, date, category, description, attachments);
         }
@@ -78,6 +79,6 @@ namespace BusinessLayer
         public List<Category> GetCategories()
         {
             return _budget.GetCategories();
-        }
+        }*/
     }
 }

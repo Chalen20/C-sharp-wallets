@@ -4,19 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BudgetsWPF.Budgets"
+             xmlns:transaction="clr-namespace:BudgetsWPF.Transactions"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              IsEnabled="{Binding IsEnabled}">
     <UserControl.Resources>
+        <DataTemplate DataType="{x:Type transaction:TransactionsViewModel}">
+            <transaction:TransactionsView></transaction:TransactionsView>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type local:BudgetsDetailsViewModel}">
             <local:BudgetsDetailsView></local:BudgetsDetailsView>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type transaction:TransactionsDetailsViewModel}">
+            <transaction:TransactionsDetailsView></transaction:TransactionsDetailsView>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="50"></ColumnDefinition>
+            <ColumnDefinition MinWidth="100"></ColumnDefinition>
             <ColumnDefinition Width="2"></ColumnDefinition>
-            <ColumnDefinition MinWidth="100" Width="3*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="100" Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="2"></ColumnDefinition>
+            <ColumnDefinition MinWidth="100" Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -29,13 +38,18 @@
         <!-- Collection -->
         <ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" ItemsSource="{Binding Budgets}" DisplayMemberPath="DisplayName" SelectedItem="{Binding CurrentBudget}">
         </ListView>
-
-        <GridSplitter Grid.Column="2" HorizontalAlignment="Stretch"></GridSplitter>
-        
-        <!-- Details -->
-        <ContentControl Grid.Column="3" Content="{Binding CurrentBudget}"></ContentControl>
         <Button Grid.Column="0" MaxWidth="100" Margin="10" Grid.Row="1" Command="{Binding CreateCommand}">Create</Button>
         <Button Grid.Column="0" MaxWidth="100" Margin="10" Grid.Row="2" Command="{Binding DeleteCommand}">Delete</Button>
         <Button Grid.Column="0" MaxWidth="100" Margin="10" Grid.Row="3" Command="{Binding SignOutCommand}">Sign Out</Button>
+
+        <GridSplitter Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch"></GridSplitter>
+        
+        <!-- Details -->
+        <ContentControl Grid.Column="2" Grid.RowSpan="4" Content="{Binding CurrentTransactions}"></ContentControl>
+
+        <GridSplitter Grid.Column="3" Grid.RowSpan="4" HorizontalAlignment="Stretch"></GridSplitter>
+
+        <ContentControl Grid.Column="4" Grid.RowSpan="4" Content="{Binding CurrentBudget}"></ContentControl>
+        <ContentControl Grid.Column="4" Grid.RowSpan="4" Content="{Binding CurrentTransactions.CurrentTransaction}"></ContentControl>
     </Grid>
 </UserControl>

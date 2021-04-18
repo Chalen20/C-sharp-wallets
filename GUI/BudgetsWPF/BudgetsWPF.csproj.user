@@ -48,5 +48,11 @@
     <Page Update="Authentication\SignInView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Transactions\TransactionsDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Transactions\TransactionsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

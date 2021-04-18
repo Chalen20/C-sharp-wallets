@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
     <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
   </ItemGroup>
 
@@ -35,6 +36,12 @@
       <SubType>Code</SubType>
       <DependentUpon>MainView.xaml.cs</DependentUpon>
     </Compile>
+    <Compile Update="Transactions\TransactionsDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Transactions\TransactionsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +50,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Budgets\BudgetsDetailsView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Transactions\TransactionsDetailsView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Transactions\TransactionsView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

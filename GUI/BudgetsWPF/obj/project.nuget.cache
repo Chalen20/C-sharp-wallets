@@ -1,10 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "hUqgTCGorUZcDY4MWJdqC9cFhZOzAwqLOE4MlRBbGD2fzbVl1lfw6QA9Td9WphkWOKozbvWKiVGKZJcUOjOwLw==",
+  "dgSpecHash": "fXorZjNc7cT6DwfjS0Gkiqg/5YRn90eNDH7cAya6hjk3QT1DOrzBM3Sn8p5BxmKAZiU0dkI50CS7ndyiTMDVoQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Inspiron\\source\\repos\\Lab1\\GUI\\BudgetsWPF\\BudgetsWPF.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Inspiron\\.nuget\\packages\\extended.wpf.toolkit\\4.0.2\\extended.wpf.toolkit.4.0.2.nupkg.sha512",
     "C:\\Users\\Inspiron\\.nuget\\packages\\prism.core\\8.0.0.1909\\prism.core.8.0.0.1909.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"Extended.Wpf.Toolkit 4.0.2\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "Extended.Wpf.Toolkit",
+      "targetGraphs": [
+        "net5.0-windows7.0"
+      ]
+    }
+  ]
 }

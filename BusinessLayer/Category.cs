@@ -5,17 +5,17 @@ namespace BusinessLayer
 {
     public class Category
     {
-        public static int InstanceCount { get; private set; }
+        /*public static int InstanceCount { get; private set; }*/
 
-        private int _id;
+        private Guid _guid;
         private string _name;
         private Color _color;
         private string _icon;
 
-        public int Id
+        public Guid Guid
         {
-            get { return _id; }
-            private set { _id = value; }
+            get { return _guid; }
+            private set { _guid = value; }
         }
 
         public string Name
@@ -38,8 +38,8 @@ namespace BusinessLayer
 
         public Category()
         {
-            InstanceCount++;
-            _id = InstanceCount;
+           /* InstanceCount++;*/
+            Guid = Guid.NewGuid();
         }
 
         /*public Category(int id): this()

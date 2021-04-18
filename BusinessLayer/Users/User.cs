@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLayer.Budgets;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Users
@@ -12,9 +13,9 @@ namespace BusinessLayer.Users
             LastName = lastName;
             Email = email;
             Login = login;
-            /*Budgets = new List<Guid>();*/
+/*            Budgets = new List<Budget>();*/
             Categories = new List<Category>();
-            /*SharedBudgets = new List<SharedBudget>();*/
+/*            SharedBudgets = new List<SharedBudget>();*/
         }
 
         public Guid Guid{ get; }
@@ -27,8 +28,8 @@ namespace BusinessLayer.Users
 
         public string Login { get; }
 
-        /*public List<Guid> Budgets { get; }*/
-        // public List<SharedBudget> SharedBudgets { get; }
+/*        public List<Budget> Budgets { get; }
+        public List<SharedBudget> SharedBudgets { get; }*/
         public List<Category> Categories { get; }
 
         public bool Validate()
@@ -49,25 +50,25 @@ namespace BusinessLayer.Users
         {
             foreach (var budget in Budgets)
             {
-                if (budget == id)
+                if (budget.Guid == id)
                 {
-                     Budgets.Remove(budget);
-                     return true;
+                    Budgets.Remove(budget);
+                    return true;
                 }
             }
             return false;
-        }*/
+        }
 
-/*        public bool Share(User user, Guid budgetId)
+        public bool Share(User user, Guid budgetId)
         {
-            if (!user.Validate() || !Validate() || user.Guid == Id)
+            if (!user.Validate() || !Validate() || user.Guid == Guid)
             {
                 return false;
             }
             SharedBudget shareBudget1 = null;
             foreach (var budget in Budgets)
             {
-                if (budget.Id == budgetId)
+                if (budget.Guid == budgetId)
                 {
                     shareBudget1 = new SharedBudget(budget);
                     break;

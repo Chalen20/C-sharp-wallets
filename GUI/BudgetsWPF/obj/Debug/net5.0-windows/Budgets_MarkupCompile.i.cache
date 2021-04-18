@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\Inspiron\source\repos\Lab1\GUI\BudgetsWPF\App.xaml
-8677817933
+10-631957454
 
-21-1729641147
-197-274745251
-Authentication\AuthView.xaml;Authentication\SignInView.xaml;Authentication\SignUpView.xaml;Budgets\BudgetsDetailsView.xaml;Budgets\BudgetsView.xaml;Header.xaml;MainView.xaml;MainWindow.xaml;
+25-2134181916
+202-61587313
+Authentication\AuthView.xaml;Authentication\SignInView.xaml;Authentication\SignUpView.xaml;Budgets\BudgetsDetailsView.xaml;Budgets\BudgetsView.xaml;Header.xaml;MainView.xaml;MainWindow.xaml;Transactions\TransactionsDetailsView.xaml;Transactions\TransactionsView.xaml;
 
-False
+True
 

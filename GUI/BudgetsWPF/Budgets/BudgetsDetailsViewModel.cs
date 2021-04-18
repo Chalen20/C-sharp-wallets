@@ -12,6 +12,36 @@ namespace BudgetsWPF.Budgets
         private bool _isEnabled = true;
         private BudgetsService _service;
         private bool _savable = false;
+        private decimal _income = 0;
+        private decimal _expenses = 0;
+
+        public DelegateCommand UpdateCommand { get; }
+
+        public decimal Income {
+            get 
+            {
+                return _income;
+            }
+            set 
+            {
+                _income = value;
+                /*UpdateCommand.RaiseCanExecuteChanged();*/
+                RaisePropertyChanged();
+            }
+        }
+        public decimal Expenses
+        {
+            get
+            {
+                return _expenses;
+            }
+            set
+            {
+                _expenses = value;
+                /*UpdateCommand.RaiseCanExecuteChanged();*/
+                RaisePropertyChanged();
+            }
+        }
 
         public bool IsEnabled
         {
@@ -33,8 +63,6 @@ namespace BudgetsWPF.Budgets
             }
         }
 
-        public DelegateCommand UpdateCommand { get; }
-
         public string Name
         {
             get
@@ -53,6 +81,26 @@ namespace BudgetsWPF.Budgets
             }
         }
 
+        public decimal StartBalance
+        {
+            get
+            {
+                return _budget.StartBalance;
+            }
+            set
+            {
+                if (_budget.StartBalance != value)
+                {
+                    _budget.Balance -= _budget.StartBalance;
+                    _budget.StartBalance = value;
+                    _budget.Balance += _budget.StartBalance;
+                    RaisePropertyChanged();
+                    _savable = true;
+                    UpdateCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
         public decimal Balance
         {
             get
@@ -61,13 +109,9 @@ namespace BudgetsWPF.Budgets
             }
             set
             {
-                if (_budget.Balance != value)
-                {
-                    _budget.Balance = value;
-                    RaisePropertyChanged();
-                    _savable = true;
-                    UpdateCommand.RaiseCanExecuteChanged();
-                }
+                _budget.Balance = value;
+                RaisePropertyChanged();
+                UpdateCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -111,13 +155,13 @@ namespace BudgetsWPF.Budgets
         {
             get
             {
-                return $"{_budget.Name} (${_budget.Balance})";
+                return $"{_budget.Name} ({_budget.Balance} {_budget.Currency})";
             }
         }
 
-        public BudgetsDetailsViewModel(Budget budget)
+        public BudgetsDetailsViewModel(Budget budget, BudgetsService service)
         {
-            _service = new BudgetsService();
+            _service = service;
             UpdateCommand = new DelegateCommand(SaveBudget, () => _savable);
             _budget = budget;
         }
@@ -128,7 +172,6 @@ namespace BudgetsWPF.Budgets
             await _service.AddOrUpdateAsync(_budget);
             _savable = false;
             RaisePropertyChanged(nameof(DisplayName));
-            UpdateCommand.RaiseCanExecuteChanged();
             IsEnabled = true;
         }
     }

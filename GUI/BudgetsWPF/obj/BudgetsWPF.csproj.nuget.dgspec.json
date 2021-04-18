@@ -159,6 +159,10 @@
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
           "dependencies": {
+            "Extended.Wpf.Toolkit": {
+              "target": "Package",
+              "version": "[4.0.2, )"
+            },
             "Prism.Core": {
               "target": "Package",
               "version": "[8.0.0.1909, )"

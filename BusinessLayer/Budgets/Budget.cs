@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Users;
+using BusinessLayer.Transactions;
 using DataStorage;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace BusinessLayer.Budgets
         public User Owner { get; }
 
         public List<Transaction> Transactions { get; }
+
         public List<Category> Categories { get; }
 
         public Budget(Guid guid, string name, decimal balance, User owner, Currency currency, string description="")
@@ -34,6 +36,7 @@ namespace BusinessLayer.Budgets
             Currency = currency;
             Transactions = new List<Transaction>();
             Categories = new List<Category>();
+/*            owner.Budgets.Add(this);*/
         }
 
         public bool Validate()
@@ -46,55 +49,55 @@ namespace BusinessLayer.Budgets
             return result;
         }
 
-        private decimal Convert(Transaction transaction)
-        {
-            if (transaction.Currency == Currency)
-            {
-                return transaction.Value;
-            }
-            if (transaction.Currency == Currency.UAH)
-            {
-                if (Currency == Currency.USD)
-                {
-                    return transaction.Value * 0.036m;
-                }
-                if (Currency == Currency.EUR)
-                {
-                    return transaction.Value * 0.030m;
-                }
-            }
-            if (transaction.Currency == Currency.USD)
-            {
-                if (Currency == Currency.UAH)
-                {
-                    return transaction.Value * 27.75m;
-                }
-                if (Currency == Currency.EUR)
-                {
-                    return transaction.Value * 0.84m;
-                }
-            }
-            if (transaction.Currency == Currency.EUR)
-            {
-                if (Currency == Currency.UAH)
-                {
-                    return transaction.Value * 33.07m;
-                }
-                if (Currency == Currency.USD)
-                {
-                    return transaction.Value * 1.19m;
-                }
-            }
-            return 0;
-        }
+        /*      private decimal Convert(Transaction transaction)
+              {
+                  if (transaction.Currency == Currency)
+                  {
+                      return transaction.Value;
+                  }
+                  if (transaction.Currency == Currency.UAH)
+                  {
+                      if (Currency == Currency.USD)
+                      {
+                          return transaction.Value * 0.036m;
+                      }
+                      if (Currency == Currency.EUR)
+                      {
+                          return transaction.Value * 0.030m;
+                      }
+                  }
+                  if (transaction.Currency == Currency.USD)
+                  {
+                      if (Currency == Currency.UAH)
+                      {
+                          return transaction.Value * 27.75m;
+                      }
+                      if (Currency == Currency.EUR)
+                      {
+                          return transaction.Value * 0.84m;
+                      }
+                  }
+                  if (transaction.Currency == Currency.EUR)
+                  {
+                      if (Currency == Currency.UAH)
+                      {
+                          return transaction.Value * 33.07m;
+                      }
+                      if (Currency == Currency.USD)
+                      {
+                          return transaction.Value * 1.19m;
+                      }
+                  }
+                  return 0;
+              }*/
 
-        public bool AddTransaction(decimal value, Currency currency, DateTime date, Category category, string description = null, List<string> attachments = null)
+/*        public bool AddTransaction(decimal value, Currency currency, DateTime date, Category category, string description = null, List<string> attachments = null)
         {
             foreach (var c in Categories)
             {
                 if (c == category)
                 {
-                    var transaction = new Transaction(Guid, value, currency, date, category, description, attachments);
+                    var transaction = new Transaction(Guid.NewGuid(), value, currency, date, category, description, attachments);
                     Transactions.Add(transaction);
                     Balance += Convert(transaction);
                     return true;
@@ -117,11 +120,12 @@ namespace BusinessLayer.Budgets
             return false;
         }
 
+
         public bool DeleteTransaction(Guid id)
         {
             foreach (var transaction in Transactions)
             {
-                if (transaction.Id == id)
+                if (transaction.Guid == id)
                 {
                     Transactions.Remove(transaction);
                     return true;
@@ -160,7 +164,7 @@ namespace BusinessLayer.Budgets
             return GetCostsOrReceipts(false);
         }
 
-        /*        public double GetBalance()
+        public double GetBalance()
         {
             var result = StartBalance;
             foreach (var transaction in Transactions)
@@ -168,7 +172,7 @@ namespace BusinessLayer.Budgets
                 result += transaction.Value;
             }
             return (double)result;
-        }*/
+        }
 
         public List<Transaction> GetTransactions(int from, int to)
         {
@@ -184,7 +188,7 @@ namespace BusinessLayer.Budgets
             {
                 return Transactions.GetRange(from, to - from);
             }
-        }
+        }*/
 
         public List<Category> GetCategories()
         {
@@ -196,18 +200,18 @@ namespace BusinessLayer.Budgets
             return categories;
         }
 
-        public bool AddCategory(int category_id)
+        public bool AddCategory(Guid category_id)
         {
             foreach (var category in Categories)
             {
-                if (category.Id == category_id)
+                if (category.Guid == category_id)
                 {
                     return false;
                 }
             }
             foreach (var category in Owner.Categories)
             {
-                if (category.Id == category_id)
+                if (category.Guid == category_id)
                 {
                     if (category.Validate())
                     {
@@ -219,11 +223,11 @@ namespace BusinessLayer.Budgets
             return false;
         }
 
-        public bool DeleteCategory(int id)
+        public bool DeleteCategory(Guid id)
         {
             foreach (var category in Categories)
             {
-                if (category.Id == id)
+                if (category.Guid == id)
                 {
                     Categories.Remove(category);
                     return true;

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="BudgetsWPF.Transactions.TransactionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BudgetsWPF.Budgets"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             IsEnabled="{Binding IsEnabled}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!-- Collection -->
+        <ListView Grid.ColumnSpan="2" ItemsSource="{Binding Transactions}" DisplayMemberPath="DisplayName" SelectedItem="{Binding CurrentTransaction}">
+        </ListView>
+        <TextBox MaxWidth="125" Grid.Row="1" Grid.Column="0" Margin="10" HorizontalAlignment="Stretch">
+            <TextBox.Text>
+                <Binding Path="StartBound" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <DataErrorValidationRule></DataErrorValidationRule>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox MaxWidth="125" Grid.Row="1" Grid.Column="1" Margin="10" HorizontalAlignment="Stretch">
+            <TextBox.Text>
+                <Binding Path="EndBound" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <DataErrorValidationRule></DataErrorValidationRule>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Grid.ColumnSpan="2" MaxWidth="150" Margin="10" Grid.Row="2" Command="{Binding GetTransactionsCommand}">Get Transactions</Button>
+        <Button Grid.ColumnSpan="2" MaxWidth="150" Margin="10" Grid.Row="3" Command="{Binding AddTransactionCommand}">Add Transaction</Button>
+        <Button Grid.ColumnSpan="2" MaxWidth="150" Margin="10" Grid.Row="4" Command="{Binding DeleteTransactionCommand}">Delete Transaction</Button>
+    </Grid>
+</UserControl>

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using BusinessLayer.Budgets;
+using BusinessLayer.Transactions;
 using BusinessLayer.Users;
 using System;
 using System.Drawing;
